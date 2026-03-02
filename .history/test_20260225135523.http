@@ -1,0 +1,77 @@
+@baseUrl = http://http://127.0.0.1:8000/api
+@contentType = application/json
+
+############################################################
+### TEST 1 - Vérifier API
+GET {{baseUrl}}/
+Accept: {{contentType}}
+
+############################################################
+### TEST 2 - Créer un ADMIN
+POST {{baseUrl}}/users/
+Content-Type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxODU0MzE1LCJpYXQiOjE3NzE4NTI1MTcsIm p0aSI6ImUwNzFiYzJiNDg5MDQyYWNiOWQ5ZjkxNTdjNjJjNjY5IiwidXNlcl9pZCI6IjMifQ.leW20VKshIG17G9HDbv7CgTDMu4AcGxpDNL4AImWWmg
+
+{
+  "nom": "Admin",
+  "prenom": "System",
+  "email": "admin@test.com",
+  "password": "123456",
+  "role": "ADMIN",
+  "statut": "ACTIF"
+}
+
+############################################################
+### TEST 3 - Créer un MANAGER
+POST {{baseUrl}}/users/
+Content-Type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxOTM5OTEzLCJpYXQiOjE3NzE5MzgxMTMsImp0aSI6ImE3OWViODRmMjFiOTRkOWE5MDNhYzdlZjg5MjIxNDg1IiwidXNlcl9pZCI6IjEifQ.BXVZiRMeiZIJ9G5L33cTALr_yuRxfqvcusH4FxMdZCA
+
+{
+  "nom": "GOMIS",
+  "prenom": "RENE",
+  "email": "renegomis@digitalis-sn.com",
+  "password": "1234",
+  "role": "MANAGER",
+  "statut": "ACTIF"
+}
+
+############################################################
+### TEST 4 - Créer un EMPLOYE
+POST {{baseUrl}}/users/
+Content-Type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxOTM5OTEzLCJpYXQiOjE3NzE5MzgxMTMsImp0aSI6ImE3OWViODRmMjFiOTRkOWE5MDNhYzdlZjg5MjIxNDg1IiwidXNlcl9pZCI6IjEifQ.BXVZiRMeiZIJ9G5L33cTALr_yuRxfqvcusH4FxMdZCA
+  
+  {
+  "nom": "DIOP",
+  "prenom": "Mbaye",
+  "email": "mbayediop@digitalis-sn.com",
+  "password": "123456789",
+  "role": "EMPLOYE",
+  "statut": "ACTIF"
+}
+
+############################################################
+### TEST 5 - Lister les users
+GET {{baseUrl}}/users/
+Accept: {{contentType}}
+
+############################################################
+### TEST 6 - Login
+POST {{baseUrl}}/auth/login/
+Content-Type: {{contentType}}
+
+{
+  "email": "admin@gmail.com",
+  "password": "admin2025"
+}
+
+
+### TEST 6 - Login
+POST {{baseUrl}}/qr/generate/
+Content-Type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxOTM4MjAwLCJpYXQiOjE3NzE5MzY0MDEsImp0aSI6IjE0MWEwYTk3ODQ1NjQwMmZhNGE5YTQ5NjcxNmJmY2RkIiwidXNlcl9pZCI6IjEifQ.FkYJG9d9liJy-vWEBW9y27LUEvtdbjnA60aFDLxbMr4
+
+{
+    "user_id": 1
+}

@@ -1,0 +1,67 @@
+@baseUrl = http://192.168.1.14:8000/api
+@contentType = application/json
+
+############################################################
+### TEST 1 - Vérifier API
+GET {{baseUrl}}/
+Accept: {{contentType}}
+
+############################################################
+### TEST 2 - Créer un ADMIN
+POST {{baseUrl}}/users/
+Content-Type: {{contentType}}
+Authorization:
+
+{
+  "nom": "Admin",
+  "prenom": "System",
+  "email": "admin@test.com",
+  "password": "123456",
+  "role": "ADMIN",
+  "statut": "ACTIF"
+}
+
+############################################################
+### TEST 3 - Créer un MANAGER
+POST {{baseUrl}}/users/
+Content-Type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxODQ1MTU5LCJpYXQiOjE3NzE4NDMzNTksImp0aSI6ImFlNDU3NmRlOGU4MDRiYWZiMWQ1YWM1YjA2MTNiZDI3IiwidXNlcl9pZCI6IjMifQ.2IMkfrbE5pGdcmZEZCBLKhRmVLQA6wMN0Q82UJhCRSk
+
+{
+  "nom": "GOMIS",
+  "prenom": "RENE",
+  "email": "renegomis@digitalis-sn.com",
+  "password": "1234",
+  "role": "MANAGER",
+  "statut": "ACTIF"
+}
+
+############################################################
+### TEST 4 - Créer un EMPLOYE
+POST {{baseUrl}}/users/
+Content-Type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcxODQ1OTI2LCJpYXQiOjE3NzE4NDQxMjYsImp0aSI6ImUzN2VmZjI5Y2RiZjQ5YWFhNzI4MDdkOWU1NTA5MDE3IiwidXNlcl9pZCI6IjMifQ.o32GCsRuoGJFpYu3BFp0SMQUe5kMBAhgTy6X-_0HpRo
+
+{
+  "nom": "DIOP",
+  "prenom": "Mbaye",
+  "email": "mbayediop@digitalis-sn.com",
+  "password": "123456789",
+  "role": "EMPLOYE",
+  "statut": "ACTIF"
+}
+
+############################################################
+### TEST 5 - Lister les users
+GET {{baseUrl}}/users/
+Accept: {{contentType}}
+
+############################################################
+### TEST 6 - Login
+POST {{baseUrl}}/auth/login/
+Content-Type: {{contentType}}
+
+{
+  "email": "amadouvcherifdia17@gmail.com",
+  "password": "soguidia17"
+}

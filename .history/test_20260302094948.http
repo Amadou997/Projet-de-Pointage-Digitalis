@@ -1,0 +1,64 @@
+@baseUrl = http://192.168.1.14:8000/api
+@contentType = application/json
+
+#########################################################
+### 1️⃣ LOGIN ADMIN (Récupérer JWT)
+POST {{baseUrl}}/auth/login/
+Content-Type: {{contentType}}
+
+
+{
+  "email": "amadoucherifdia17@gmail.com",
+  "password": "azertyno"
+}
+
+#########################################################
+### ⚠️ Copie le access token reçu ci-dessous
+@token = COPIER_ICI_LE_ACCESS_TOKEN
+
+#########################################################
+### 2️⃣ Créer un employé
+POST {{baseUrl}}/users/
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "nom": "Sow",
+  "prenom": "Ali",
+  "email": "ali@test.com",
+  "password": "123456",
+  "role": "EMPLOYE",
+  "statut": "ACTIF"
+}
+
+#########################################################
+### 3️⃣ Générer QR dynamique ENTREE
+POST {{baseUrl}}/qr/dynamic/generate/
+Content-Type: {{contentType}}
+Authorization: Bearer {{token}}
+
+{
+  "user_id": 3,
+  "type": "ENTREE"
+}
+
+#########################################################
+### 4️⃣ Générer QR dynamique SORTIE
+POST {{baseUrl}}/qr/dynamic/generate/
+Content-Type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzcyNDQ2MTI0LCJpYXQiOjE3NzI0NDQzMjQsImp0aSI6IjMxZmJhZDhkNWZiMjRmYTViOWEyMzJiZGVmMzdlNjBmIiwidXNlcl9pZCI6IjEifQ.GMt7TYqX-NqjcXvPXXgko_NJk82KViPt8kov9Ci0wC
+
+{
+  "user_id": 3,
+  "type": "SORTIE"
+}
+
+#########################################################
+### 5️⃣ Vérifier QR sessions enregistrées
+GET {{baseUrl}}/qr/sessions/
+Authorization: Bearer {{token}}
+
+#########################################################
+### 6️⃣ Vérifier pointages
+GET {{baseUrl}}/pointages/
+Authorization: Bearer {{token}}

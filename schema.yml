@@ -1,0 +1,1059 @@
+openapi: 3.0.3
+info:
+  title: Projet de Gestion du Personnel de Digitalis sn
+  version: 1.0.0
+  description: Your project description
+paths:
+  /api/absences/:
+    get:
+      operationId: absences_list
+      tags:
+      - absences
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Absence'
+          description: ''
+    post:
+      operationId: absences_create
+      tags:
+      - absences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Absence'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Absence'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Absence'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+          description: ''
+  /api/absences/{id}/:
+    get:
+      operationId: absences_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this absence.
+        required: true
+      tags:
+      - absences
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+          description: ''
+    put:
+      operationId: absences_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this absence.
+        required: true
+      tags:
+      - absences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Absence'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Absence'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Absence'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+          description: ''
+    patch:
+      operationId: absences_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this absence.
+        required: true
+      tags:
+      - absences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAbsence'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAbsence'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAbsence'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+          description: ''
+    delete:
+      operationId: absences_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this absence.
+        required: true
+      tags:
+      - absences
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/absences/{id}/rejeter/:
+    put:
+      operationId: absences_rejeter_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this absence.
+        required: true
+      tags:
+      - absences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Absence'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Absence'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Absence'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+          description: ''
+  /api/absences/{id}/valider/:
+    put:
+      operationId: absences_valider_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this absence.
+        required: true
+      tags:
+      - absences
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Absence'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Absence'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Absence'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Absence'
+          description: ''
+  /api/auth/login/:
+    post:
+      operationId: auth_login_create
+      description: |-
+        Takes a set of user credentials and returns an access and refresh JSON web
+        token pair to prove the authentication of those credentials.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenObtainPair'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenObtainPair'
+          description: ''
+  /api/auth/me/:
+    get:
+      operationId: auth_me_retrieve
+      tags:
+      - auth
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/auth/refresh/:
+    post:
+      operationId: auth_refresh_create
+      description: |-
+        Takes a refresh type JSON web token and returns an access type JSON web
+        token if the refresh token is valid.
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TokenRefresh'
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenRefresh'
+          description: ''
+  /api/horaires/:
+    get:
+      operationId: horaires_list
+      tags:
+      - horaires
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Horaire'
+          description: ''
+    post:
+      operationId: horaires_create
+      tags:
+      - horaires
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Horaire'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Horaire'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Horaire'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Horaire'
+          description: ''
+  /api/horaires/{id}/:
+    get:
+      operationId: horaires_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this horaire.
+        required: true
+      tags:
+      - horaires
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Horaire'
+          description: ''
+    put:
+      operationId: horaires_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this horaire.
+        required: true
+      tags:
+      - horaires
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Horaire'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Horaire'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Horaire'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Horaire'
+          description: ''
+    patch:
+      operationId: horaires_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this horaire.
+        required: true
+      tags:
+      - horaires
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedHoraire'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedHoraire'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedHoraire'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Horaire'
+          description: ''
+    delete:
+      operationId: horaires_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this horaire.
+        required: true
+      tags:
+      - horaires
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/pointages/:
+    get:
+      operationId: pointages_list
+      tags:
+      - pointages
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pointage'
+          description: ''
+    post:
+      operationId: pointages_create
+      tags:
+      - pointages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pointage'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pointage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pointage'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pointage'
+          description: ''
+  /api/pointages/{id}/:
+    get:
+      operationId: pointages_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pointage.
+        required: true
+      tags:
+      - pointages
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pointage'
+          description: ''
+    put:
+      operationId: pointages_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pointage.
+        required: true
+      tags:
+      - pointages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pointage'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pointage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Pointage'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pointage'
+          description: ''
+    patch:
+      operationId: pointages_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pointage.
+        required: true
+      tags:
+      - pointages
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedPointage'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedPointage'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedPointage'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pointage'
+          description: ''
+    delete:
+      operationId: pointages_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this pointage.
+        required: true
+      tags:
+      - pointages
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/qr/generate_qr/:
+    post:
+      operationId: qr_generate_qr_create
+      tags:
+      - qr
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/qr/scan_qr/:
+    post:
+      operationId: qr_scan_qr_create
+      tags:
+      - qr
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/reports/:
+    get:
+      operationId: reports_retrieve
+      tags:
+      - reports
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/users/:
+    get:
+      operationId: users_list
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+          description: ''
+    post:
+      operationId: users_create
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+  /api/users/{id}/:
+    get:
+      operationId: users_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    put:
+      operationId: users_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/User'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    patch:
+      operationId: users_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedUser'
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+          description: ''
+    delete:
+      operationId: users_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this user.
+        required: true
+      tags:
+      - users
+      security:
+      - jwtAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Absence:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        dateDebut:
+          type: string
+          format: date
+        dateFin:
+          type: string
+          format: date
+        motif:
+          type: string
+        typeAbsence:
+          $ref: '#/components/schemas/TypeAbsenceEnum'
+        statut:
+          allOf:
+          - $ref: '#/components/schemas/AbsenceStatutEnum'
+          readOnly: true
+        user:
+          type: integer
+      required:
+      - dateDebut
+      - dateFin
+      - id
+      - motif
+      - statut
+      - user
+    AbsenceStatutEnum:
+      enum:
+      - EN_ATTENTE
+      - VALIDE
+      - REJETE
+      type: string
+      description: |-
+        * `EN_ATTENTE` - En attente
+        * `VALIDE` - Validée
+        * `REJETE` - Rejetée
+    Horaire:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        heureDebut:
+          type: string
+          format: time
+        heureFin:
+          type: string
+          format: time
+        joursTravail: {}
+      required:
+      - heureDebut
+      - heureFin
+      - id
+      - joursTravail
+    PatchedAbsence:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        dateDebut:
+          type: string
+          format: date
+        dateFin:
+          type: string
+          format: date
+        motif:
+          type: string
+        typeAbsence:
+          $ref: '#/components/schemas/TypeAbsenceEnum'
+        statut:
+          allOf:
+          - $ref: '#/components/schemas/AbsenceStatutEnum'
+          readOnly: true
+        user:
+          type: integer
+    PatchedHoraire:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        heureDebut:
+          type: string
+          format: time
+        heureFin:
+          type: string
+          format: time
+        joursTravail: {}
+    PatchedPointage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date
+          readOnly: true
+        heure_entree:
+          type: string
+          format: time
+          nullable: true
+        heure_sortie:
+          type: string
+          format: time
+          nullable: true
+        est_retard:
+          type: boolean
+        minutes_retard:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        heures_sup:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        employe:
+          type: integer
+    PatchedUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        nom:
+          type: string
+          maxLength: 100
+        prenom:
+          type: string
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        statut:
+          $ref: '#/components/schemas/UserStatutEnum'
+        is_active:
+          type: boolean
+        is_staff:
+          type: boolean
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+    Pointage:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        date:
+          type: string
+          format: date
+          readOnly: true
+        heure_entree:
+          type: string
+          format: time
+          nullable: true
+        heure_sortie:
+          type: string
+          format: time
+          nullable: true
+        est_retard:
+          type: boolean
+        minutes_retard:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        heures_sup:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+        employe:
+          type: integer
+      required:
+      - date
+      - employe
+      - id
+    RoleEnum:
+      enum:
+      - ADMIN
+      - MANAGER
+      - EMPLOYE
+      type: string
+      description: |-
+        * `ADMIN` - Admin
+        * `MANAGER` - Manager
+        * `EMPLOYE` - Employe
+    TokenObtainPair:
+      type: object
+      properties:
+        email:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+          readOnly: true
+      required:
+      - access
+      - email
+      - password
+      - refresh
+    TokenRefresh:
+      type: object
+      properties:
+        access:
+          type: string
+          readOnly: true
+        refresh:
+          type: string
+      required:
+      - access
+      - refresh
+    TypeAbsenceEnum:
+      enum:
+      - CONGE_ANNUEL
+      - CONGE_MALADIE
+      - CONGE_EXCEPTIONNEL
+      - ABSENCE_NON_JUSTIFIEE
+      type: string
+      description: |-
+        * `CONGE_ANNUEL` - Congé annuel
+        * `CONGE_MALADIE` - Congé maladie
+        * `CONGE_EXCEPTIONNEL` - Congé exceptionnel
+        * `ABSENCE_NON_JUSTIFIEE` - Absence non justifiée
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        password:
+          type: string
+          writeOnly: true
+        last_login:
+          type: string
+          format: date-time
+          nullable: true
+        is_superuser:
+          type: boolean
+          title: Superuser status
+          description: Designates that this user has all permissions without explicitly
+            assigning them.
+        nom:
+          type: string
+          maxLength: 100
+        prenom:
+          type: string
+          maxLength: 100
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        statut:
+          $ref: '#/components/schemas/UserStatutEnum'
+        is_active:
+          type: boolean
+        is_staff:
+          type: boolean
+        groups:
+          type: array
+          items:
+            type: integer
+          description: The groups this user belongs to. A user will get all permissions
+            granted to each of their groups.
+        user_permissions:
+          type: array
+          items:
+            type: integer
+          description: Specific permissions for this user.
+      required:
+      - email
+      - id
+      - nom
+      - password
+      - prenom
+      - role
+    UserStatutEnum:
+      enum:
+      - ACTIF
+      - INACTIF
+      type: string
+      description: |-
+        * `ACTIF` - Actif
+        * `INACTIF` - Inactif
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
