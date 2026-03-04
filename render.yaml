@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: mon-backend-django
+    runtime: python
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn mon_projet.wsgi:application" # Remplace 'mon_projet' par le nom de ton dossier settings
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: ma-base-donnees
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: 3.10.0
+
+databases:
+  - name: ma-base-donnees
+    plan: free # Ou 'standard' selon ton besoin
