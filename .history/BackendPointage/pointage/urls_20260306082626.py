@@ -16,5 +16,5 @@ urlpatterns = [
 
 #urlpatterns=[
 #path("qr/scan/", QRCodeViewSet.as_view({'post': 'scan'}), name='qr-scan'),
-#]
+]
 

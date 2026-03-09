@@ -129,8 +129,8 @@ class Absence(models.Model):
 
     STATUT_CHOICES = (
         ('EN_ATTENTE', 'En attente'),
-        ('VALIDEE', 'Validée'),
-        ('REFUSEE', 'Refusée'),
+        ('VALIDE', 'Validée'),
+        ('REJETE', 'Rejetée'),
     )
 
     TYPE_CHOICES =[("CONGE", "Congé"),

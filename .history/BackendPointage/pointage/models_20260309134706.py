@@ -129,14 +129,14 @@ class Absence(models.Model):
 
     STATUT_CHOICES = (
         ('EN_ATTENTE', 'En attente'),
-        ('VALIDEE', 'Validée'),
-        ('REFUSEE', 'Refusée'),
+        ('VALIDE', 'Validée'),
+        ('REJETE', 'Rejetée'),
     )
 
     TYPE_CHOICES =[("CONGE", "Congé"),
-        ("MALADIE", "maladie"),
-        ("MISSION", "mission"),
-        ("AUTRE", "autre"),
+        ("CONGE_MALADIE", "Congé maladie"),
+        ("CONGE_EXCEPTIONNEL", "Congé exceptionnel"),
+        ("ABSENCE_NON_JUSTIFIEE", "Absence non justifiée"),
         ]
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
